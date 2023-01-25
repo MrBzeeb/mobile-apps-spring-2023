@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Week 1 - Introduction to Java/In Class Assignment/Docs/Docs.iml" filepath="$PROJECT_DIR$/Week 1 - Introduction to Java/In Class Assignment/Docs/Docs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week 1 - Introduction to Java/In Class Assignment/Solution/Solution.iml" filepath="$PROJECT_DIR$/Week 1 - Introduction to Java/In Class Assignment/Solution/Solution.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mobile-apps-spring-2023.iml" filepath="$PROJECT_DIR$/.idea/mobile-apps-spring-2023.iml" />
+    </modules>
+  </component>
+</project>
