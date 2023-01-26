@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">evaluation1</string>
+    <string name="math_operator">+</string>
+    <string name="number_A_hint">Enter A</string>
+    <string name="number_B_hint">Enter B</string>
+    <string name="answer_initial">N/A</string>
+    <string name="equal_sign">=</string>
+    <string name="button_calculate_text">Calculate</string>
+    <string name="button_reset_text">Reset</string>
+    <string name="operator_select_text">Operation:</string>
+    <string name="radio_add_text">Add</string>
+    <string name="radio_subtract_text">Subtract</string>
+    <string name="radio_multiply_text">Multiply</string>
+    <string name="radio_divide_text">Divide</string>
 </resources>
