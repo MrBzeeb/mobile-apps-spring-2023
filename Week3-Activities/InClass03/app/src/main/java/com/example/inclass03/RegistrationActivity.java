@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -73,6 +74,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 Intent intent = new Intent(RegistrationActivity.this, ProfileActivity.class);
                 intent.putExtra(KEY_REG, data);
                 startDeptForResult.launch(intent);
+
+                Toast.makeText(RegistrationActivity.this, "Operand B is zero which would cause divide by zero error", Toast.LENGTH_SHORT).show();
             }
         });
     }
