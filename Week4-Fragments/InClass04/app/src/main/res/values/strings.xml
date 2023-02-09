@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">InClass04</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_label">Welcome !!</string>
+    <string name="label_button_welcome">Register</string>
+    <string name="label_name">Name:</string>
+    <string name="label_email">Email:</string>
+    <string name="label_id">ID:</string>
+    <string name="label_dept">Dept:</string>
+    <string name="hint_name">Enter Name</string>
+    <string name="hint_email">Enter Email</string>
+    <string name="hint_id">Enter ID</string>
+    <string name="button_label_dept_select">Select</string>
+    <string name="button_label_submit">Submit</string>
+
+
+    <string name="welcome_text">Welcome !!</string>
+    <string name="welcome_button_text">Register</string>
+    <string name="img_description">Heart shaped word cloud with words meaning welcome in various languages</string>
+    <string name="button_select_text">Select</string>
+    <string name="button_submit_text">Submit</string>
+    <string name="button_cancel_text">Cancel</string>
+    <string name="radio_label_compsci">Computer Science</string>
+    <string name="radio_label_softinfo">Software Info. Systems</string>
+    <string name="radio_label_bioinfo">Bio Informatics</string>
+    <string name="radio_label_datasci">Data Science</string>
+</resources>
