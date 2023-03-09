@@ -1,4 +1,4 @@
-package com.example.inclass06;
+package com.example.assessment5;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.inclass06.databinding.FragmentCreateContactBinding;
+import com.example.assessment5.databinding.FragmentRegisterBinding;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -23,76 +23,85 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
-public class CreateContactFragment extends Fragment {
-
-    public CreateContactFragment() {
+public class RegisterFragment extends Fragment {
+    public RegisterFragment() {
         // Required empty public constructor
     }
 
-    FragmentCreateContactBinding binding;
+    FragmentRegisterBinding binding;
+
+    private final OkHttpClient client = new OkHttpClient();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentCreateContactBinding.inflate(inflater, container, false);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getActivity().setTitle("Add Contact");
-
+        getActivity().setTitle("Register");
         binding.buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                mListener.gotoLogin();
             }
         });
 
         binding.buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = binding.editTextName.getText().toString();
+                String fname = binding.editTextFirstName.getText().toString();
+                String lname = binding.editTextLastName.getText().toString();
                 String email = binding.editTextEmail.getText().toString();
-                String phone = binding.editTextPhone.getText().toString();
-                String type = "CELL";
-                if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButtonHome){
-                    type = "HOME";
-                } else if(binding.radioGroup.getCheckedRadioButtonId() == R.id.radioButtonOffice){
-                    type = "OFFICE";
-                }
-
-                if(name.isEmpty()){
-                    Toast.makeText(getActivity(), "Enter name!", Toast.LENGTH_SHORT).show();
-                } else if(email.isEmpty()){
-                    Toast.makeText(getActivity(), "Enter email!", Toast.LENGTH_SHORT).show();
-                } else if(phone.isEmpty()){
-                    Toast.makeText(getActivity(), "Enter phone!", Toast.LENGTH_SHORT).show();
+                String password = binding.editTextPassword.getText().toString();
+                if(fname.isEmpty() || lname.isEmpty() || email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else {
-                    createContact(name, email, phone, type);
+                    //perform the registration ..
+                    performRegistration(fname, lname, email, password);
                 }
             }
         });
     }
 
-    private final OkHttpClient client = new OkHttpClient();
+    RegisterListener mListener;
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof RegisterListener) {
+            mListener = (RegisterListener) context;
+        } else {
+            throw new RuntimeException(context.toString() + " must implement RegisterListener");
+        }
+    }
 
-    void createContact(String name, String email, String phone, String type){
+    interface RegisterListener {
+        void authSuccessful();
+        void gotoLogin();
+    }
+
+    private void performRegistration(String fname, String lname, String email, String password) {
+        //HttpUrl url = HttpUrl.parse("https://192.168.206.207:5555/api/signup");
+        HttpUrl url = HttpUrl.parse("https://www.theappsdr.com/api/signup").newBuilder().build();
+        //HttpUrl url = HttpUrl.parse("https://localhost:5555/api/signup");
+
         RequestBody formBody = new FormBody.Builder()
-                .add("name", name)
+                .add("fname", fname)
+                .add("lname", lname)
                 .add("email", email)
-                .add("phone", phone)
-                .add("type", type)
+                .add("password", password)
                 .build();
 
         Request request = new Request.Builder()
-                .url("https://www.theappsdr.com/contact/json/create")
+                .url("https://www.theappsdr.com/api/signup")
                 .post(formBody)
                 .build();
 
@@ -104,11 +113,13 @@ public class CreateContactFragment extends Fragment {
 
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                Log.w("API", "API onResponse");
                 if(response.isSuccessful()){
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            mListener.doneCreateContact();
+                            Log.w("API", "authSuccessful");
+                            mListener.authSuccessful();
                         }
                     });
                 } else {
@@ -128,21 +139,5 @@ public class CreateContactFragment extends Fragment {
                 }
             }
         });
-
     }
-
-
-    CreateContactListener mListener;
-
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        mListener = (CreateContactListener) context;
-    }
-
-    interface CreateContactListener{
-        void cancelCreateContact();
-        void doneCreateContact();
-    }
-
 }
